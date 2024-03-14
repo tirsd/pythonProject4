@@ -251,7 +251,7 @@ for i in tqdm(range(0,len(result))):
         elif insertgroup[-1] != "ИФ":
             insertgroup[-1] = "ПДК"
             charmgr.append('ПДК')
-    if result.iloc[i]['group'] == "ПОДВЕС" and insertgroup[-1] in ['БК''ИФ']:
+    if result.iloc[i]['group'] == "ПОДВЕС" and insertgroup[-1] in ['БК','ИФ']:
         insertgroup[-1] = insertgroup[-1] + " " + result.iloc[i]['group'] + " " + charms(i)
     elif result.iloc[i]['group'] == "ПОДВЕС":
         insertgroup[-1] = insertgroup[-1] + " " + result.iloc[i]['group']
