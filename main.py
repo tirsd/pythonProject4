@@ -90,6 +90,7 @@ while True:
     if p == page_counts:
         break
     p+=1
+mwd.close()
 weights = list()
 inserts = list()
 metals = list()
