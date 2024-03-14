@@ -41,15 +41,19 @@ warnings.filterwarnings('ignore')
 links=list()
 spis = [143, 287, 431, 719, 1007, 1061, 1115, 1169, 1313, 1601, 1655, 1919, 2045, 2189,2405]
 p=1
-mwd = webdriver.Chrome()
-mwd.maximize_window()
 arts = list()
 prices = list()
 po = list()
 date = list()
 discount = list()
+print("Введите ссылку:")
+url = str(input())
+url1 = url[:url.find("page=")+5]
+url2 = url[url.find("&",url.find("page=")):]
+mwd = webdriver.Chrome()
+mwd.maximize_window()
 while True:
-    url = f'https://www.wildberries.ru/catalog/yuvelirnye-ukrasheniya/koltsa?sort=popular&page={p}&fsize=7190%3B7874%3B9158&f1134=10592&f74279=80222%3B80223'
+    url = url1 + str(p) + url2
     mwd.get(url)
     time.sleep(1.5)
     step = 1900
@@ -265,8 +269,6 @@ if len(ii)>0:
     result= result.drop(labels=ii,axis=0)
 result.insert(loc=len(result.columns),column='product_group(ТГ)',value=insertgroup)
 result.insert(loc=len(result.columns),column='product_direction(ТН)',value=insertgroup)
-t = r'\\gold585.int\uk\Общее хранилище файлов\Служба аналитики\МЮР\tg_tn\data_stock.xlsx'.encode()
-t1 =t.decode('UTF-8')
-oldres = pd.read_excel(t1)
-oldres = oldres.apply(result)
-oldres.to_excel('wb.xlsx',header=False, index=False)
+oldres = pd.read_excel(r'C:\Users\Petrov.Ilya\Downloads\wb.xlsx')
+oldres = pd.concat([oldres,result],ignore_index=True)
+oldres.to_excel(r'C:\Users\Petrov.Ilya\Downloads\wb.xlsx', index=False)
