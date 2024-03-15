@@ -79,14 +79,14 @@ while True:
             po.append(math.ceil(int(prl)/0.95))
             discount.append(0.95)
         else:
-            prl = art.findNext('ins',attrs={'class':'price__lower-price'}).text.strip()[:-2]
+            prl = art.findNext('ins',attrs={'class': 'price__lower-price'}).text.strip()[:-2]
             if prl.find('\xa0')>0:
                 prl = prl.replace('\xa0','')
             prices.append(prl)
             po.append(prl)
             discount.append(1)
     if p == 1:
-        page_counts = int(soup.find(attrs={'data-link':'html{spaceFormatted:pagerModel.totalItems}'}).text.replace(' ',''))//100+1
+        page_counts = int(soup.find(attrs={'data-link': 'html{spaceFormatted:pagerModel.totalItems}'}).text.replace(' ',''))//100+1
     if p == page_counts:
         break
     p+=1
@@ -271,7 +271,10 @@ if len(ii)>0:
     result= result.drop(labels=ii,axis=0)
 result.insert(loc=len(result.columns),column='product_group(ТГ)',value=insertgroup)
 result.insert(loc=len(result.columns),column='product_direction(ТН)',value=charmgr)
-adres = r'\\gold585.int\uk\Общее хранилище файлов\Служба аналитики\МЮР\tg_tn\data_stock.xlsx'.encode().decode('UTF-8')
-oldres = pd.read_excel(adres)
+adres = r'\\gold585.int\uk\Общее хранилище файлов\Служба аналитики\МЮР\tg_tn'.encode().decode('UTF-8')+r'\wildberries_' + str(datetime.date.today())+".xlsx"
+try:
+    oldres = pd.read_excel(adres)
+except:
+    oldres = pd.DataFrame()
 oldres = pd.concat([oldres,result],ignore_index=True)
 oldres.to_excel(adres, index=False)
