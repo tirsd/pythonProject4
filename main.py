@@ -271,10 +271,17 @@ if len(ii)>0:
     result= result.drop(labels=ii,axis=0)
 result.insert(loc=len(result.columns),column='product_group(ТГ)',value=insertgroup)
 result.insert(loc=len(result.columns),column='product_direction(ТН)',value=charmgr)
-adres = r'\\gold585.int\uk\Общее хранилище файлов\Служба аналитики\МЮР\tg_tn'.encode().decode('UTF-8')+r'\wildberries_' + str(datetime.date.today())+".xlsx"
+adres = r'\\gold585.int\uk\Общее хранилище файлов\Служба аналитики\МЮР\tg_tn'.encode().decode('UTF-8')+r'\wildberries_' + str(datetime.date.today().day) + "_" + str(datetime.date.today().month) + "_" + str(datetime.date.today().year)+".xlsx"
 try:
     oldres = pd.read_excel(adres)
 except:
     oldres = pd.DataFrame()
 oldres = pd.concat([oldres,result],ignore_index=True)
 oldres.to_excel(adres, index=False)
+adresm = "wildberries_"+ str(datetime.date.today().day) + "_" + str(datetime.date.today().month) + "_" + str(datetime.date.today().year)+" "+".xlsx"
+try:
+    oldresm = pd.read_excel(adresm)
+except:
+    oldresm = pd.DataFrame()
+oldresm = pd.concat([oldresm,result],ignore_index=True)
+oldresm.to_excel(adresm, index=False)
