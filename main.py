@@ -49,7 +49,7 @@ discount = list()
 print("Введите ссылку:")
 url = str(input())
 url1 = url[:url.find("page=")+5]
-url2 = url[url.find("&",url.find("page=")):]
+url2 = url[url.find("&", url.find("page=")):]
 mwd = webdriver.Chrome()
 mwd.maximize_window()
 while True:
@@ -240,7 +240,6 @@ for i in tqdm(range(0,len(result))):
             break
         elif ins == "фианит" or ins == "бриллиант искусственный" or ins == "бриллиант выращенный" or ins =="бриллианит" or ins == "бриллиант синтетический" or "фианит" in str(result.iloc[i]['insert']).lower():
             insertgroup[-1] = "ИФ"
-            charmgr.append('ПДК')
         elif "нет" in ins or "без" in ins or  str(result.iloc[i]['insert']).lower().strip() == "золото" or str(result.iloc[i]['insert']).lower() == "эмаль" or ins == "nan":
             insertgroup[-1] = "БК"
             charmgr.append('БК')
@@ -250,7 +249,8 @@ for i in tqdm(range(0,len(result))):
             charmgr.append('ДК')
         elif insertgroup[-1] != "ИФ":
             insertgroup[-1] = "ПДК"
-            charmgr.append('ПДК')
+    if insertgroup[-1] in ['ИФ', 'ПДК']:
+        charmgr.append('ПДК')
     if result.iloc[i]['group'] == "ПОДВЕС" and insertgroup[-1] in ['БК','ИФ']:
         insertgroup[-1] = insertgroup[-1] + " " + result.iloc[i]['group'] + " " + charms(i)
     elif result.iloc[i]['group'] == "ПОДВЕС":
@@ -266,6 +266,7 @@ for i in tqdm(range(0,len(result))):
         insertgroup[-1] = insertgroup[-1] + " " + result.iloc[i]['group']
     else:
         ii.append(i)
+        charmgr.pop()
 if len(ii)>0:
     result= result.drop(labels=ii,axis=0)
 result.insert(loc=len(result.columns),column='product_group(ТГ)',value=insertgroup)
