@@ -245,7 +245,7 @@ for i in tqdm(range(0,len(result))):
             insertgroup[-1] = "БК"
             charmgr.append('БК')
             break
-        elif "бр" in ins and "искусственный" not in str(result.iloc[i]['insert']).lower()  and "выращенный" not in str(result.iloc[i]['insert']).lower() and "синтетический" not in str(result.iloc[i]['insert']).lower():
+        elif "бр" in ins and "искусственный" not in str(result.iloc[i]['insert']).lower() and "выращенный" not in str(result.iloc[i]['insert']).lower() and "синтетический" not in str(result.iloc[i]['insert']).lower():
             insertgroup[-1] = "ДК"
             charmgr.append('ДК')
         elif insertgroup[-1] != "ИФ":
@@ -269,7 +269,7 @@ for i in tqdm(range(0,len(result))):
 if len(ii)>0:
     result= result.drop(labels=ii,axis=0)
 result.insert(loc=len(result.columns),column='product_group(ТГ)',value=insertgroup)
-result.insert(loc=len(result.columns),column='product_direction(ТН)',value=insertgroup)
+result.insert(loc=len(result.columns),column='product_direction(ТН)',value=charmgr)
 oldres = pd.read_excel(r'C:\Users\Petrov.Ilya\Downloads\wb.xlsx')
 oldres = pd.concat([oldres,result],ignore_index=True)
 oldres.to_excel(r'C:\Users\Petrov.Ilya\Downloads\wb.xlsx', index=False)
