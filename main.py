@@ -259,7 +259,7 @@ for i in tqdm(range(0,len(result))):
         insertgroup[-1] = insertgroup[-1] + " " + result.iloc[i]['group']
     elif result.iloc[i]['group'] in ['ЦБ ЦЕПИ', 'ЦБ БРАСЛЕТЫ']:
         insertgroup[-1] = result.iloc[i]['group']
-        charmgr[-1] == "ЦБ"
+        charmgr[-1] = "ЦБ"
     elif result.iloc[i]['group'] == "КОЛЬЦА" and married:
         insertgroup[-1] = insertgroup[-1] + " " + result.iloc[i]['group'] + " " + "ОБРУЧ"
     elif result.iloc[i]['group'] == "КОЛЬЦА":
